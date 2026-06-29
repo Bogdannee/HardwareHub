@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/HardwareHub.Application/HardwareHub.Application.csproj" Id="b4a861b7-c4e9-4d67-b883-0341ebd21ac3" />
+  <Project Path="src/HardwareHub.Domain/HardwareHub.Domain.csproj" Id="e1f5955e-b15e-4c66-8710-a35acb3d3144" />
+  <Project Path="src/HardwareHub.Infrastructure/HardwareHub.Infrastructure.csproj" Id="13e04be2-2ade-4125-9017-381de5020ec9" />
+  <Project Path="src/HardwareHub/HardwareHub.WebAPI.csproj" />
+  <Properties Name="SolutionProperties">
+    <Property Name="WorkspaceFolder" Value="src" />
+  </Properties>
+</Solution>
