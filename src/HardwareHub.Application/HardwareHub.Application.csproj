@@ -10,4 +10,10 @@
     <ProjectReference Include="..\HardwareHub.Domain\HardwareHub.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageReference Include="Mapster" Version="10.0.10" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
+  </ItemGroup>
+
 </Project>

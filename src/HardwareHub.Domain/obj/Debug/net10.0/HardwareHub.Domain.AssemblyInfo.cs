@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HardwareHub.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ce1da86d7f69806bcd2305038c9600645b57d56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95b1b8b6789247ac438d2d6eb662d4a481011873")]
 [assembly: System.Reflection.AssemblyProductAttribute("HardwareHub.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HardwareHub.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
