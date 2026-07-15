@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HardwareHub.WebAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95b1b8b6789247ac438d2d6eb662d4a481011873")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25218a3df6e2e24d02da645c9adf3cbc6213875e")]
 [assembly: System.Reflection.AssemblyProductAttribute("HardwareHub.WebAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HardwareHub.WebAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
