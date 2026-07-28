@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HardwareHub.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25218a3df6e2e24d02da645c9adf3cbc6213875e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06f37a17f15b368d6ae479e72eda55aebd2c7f18")]
 [assembly: System.Reflection.AssemblyProductAttribute("HardwareHub.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HardwareHub.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
