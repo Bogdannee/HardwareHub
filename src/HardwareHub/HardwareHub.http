@@ -1,6 +1,44 @@
 @HardwareHub_HostAddress = http://localhost:5231
 
-GET {{HardwareHub_HostAddress}}/weatherforecast/
-Accept: application/json
+### 1. Регистрация нового пользователя (Customer)
+POST {{HardwareHub_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "customer@hardwarehub.com",
+  "password": "UserPass123!",
+  "username": "customer_user"
+}
 
 ###
+
+### 2. Успешный вход под зарегистрированным пользователем
+POST {{HardwareHub_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@hardwarehub.com",
+  "password": "UserPass123!"
+}
+
+###
+
+### 3. Вход под администратором по умолчанию (который создался при сидинге)
+POST {{HardwareHub_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@hardwarehub.com",
+  "password": "AdminPass123!"
+}
+
+###
+
+### 4. Неуспешный вход (неверный пароль)
+POST {{HardwareHub_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@hardwarehub.com",
+  "password": "WrongPassword"
+}
