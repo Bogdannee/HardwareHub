@@ -1,5 +1,10 @@
+using System;
+
 namespace HardwareHub.Domain.Entities
 {
+    /// <summary>
+    /// Доменная сущность Товара.
+    /// </summary>
     public class Product
     {
         public Guid Id { get; private set; }
@@ -8,24 +13,49 @@ namespace HardwareHub.Domain.Entities
         public decimal Price { get; private set; }
         public int Quantity { get; private set; }
 
-        // Приватный конструктор для Entity Framework Core и маппинга
+        // Добавляем внешний ключ для связи с категорией.
+        // Товар обязательно должен принадлежать какой-то одной категории.
+        public Guid CategoryId { get; private set; }
+
+        // Навигационное свойство для EF Core. 
+        // Инициализируем "= null!" для подавления предупреждения компилятора о nullability.
+        // EF Core автоматически заполнит это свойство при использовании .Include() в запросах.
+        public Category Category { get; private set; } = null!;
+
+        /// <summary>
+        /// Приватный конструктор для Entity Framework Core и маппинга.
+        /// </summary>
         private Product() { }
 
-        public Product(string name, string description, decimal price, int quantity)
+        /// <summary>
+        /// Конструктор для создания нового товара. Теперь он требует обязательного указания CategoryId.
+        /// </summary>
+        public Product(string name, string description, decimal price, int quantity, Guid categoryId)
         {
-            // Инициализация Id в конструкторе гарантирует, что каждая новая сущность будет иметь уникальный идентификатор
-            // Guid.NewGuid() генерирует новый глобально уникальный идентификатор
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Имя товара не может быть пустым.", nameof(name));
+
+            if (price < 0)
+                throw new ArgumentException("Цена не может быть отрицательной.", nameof(price));
+
+            if (quantity < 0)
+                throw new ArgumentException("Количество не может быть отрицательным.", nameof(quantity));
+
+            if (categoryId == Guid.Empty)
+                throw new ArgumentException("Идентификатор категории должен быть указан.", nameof(categoryId));
+
             Id = Guid.NewGuid(); 
             Name = name;
             Description = description;
             Price = price;
             Quantity = quantity;
+            CategoryId = categoryId;
         }
 
-        // Методы для изменения свойств (пример инкапсуляции бизнес-логики)
         public void UpdateName(string name)
         {
-            // Здесь может быть бизнес-правило, например, проверка на уникальность имени
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Имя товара не может быть пустым.", nameof(name));
             Name = name;
         }
 
@@ -36,7 +66,6 @@ namespace HardwareHub.Domain.Entities
 
         public void UpdatePrice(decimal price)
         {
-            // Пример валидации: цена не может быть отрицательной
             if (price < 0)
             {
                 throw new ArgumentException("Цена не может быть отрицательной.");
@@ -46,12 +75,21 @@ namespace HardwareHub.Domain.Entities
 
         public void UpdateQuantity(int quantity)
         {
-            // Пример валидации: количество не может быть отрицательным
             if (quantity < 0)
             {
                 throw new ArgumentException("Количество не может быть отрицательным.");
             }
             Quantity = quantity;
+        }
+
+        /// <summary>
+        /// Метод изменения категории товара.
+        /// </summary>
+        public void UpdateCategory(Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentException("Идентификатор категории должен быть указан.", nameof(categoryId));
+            CategoryId = categoryId;
         }
     }
 }

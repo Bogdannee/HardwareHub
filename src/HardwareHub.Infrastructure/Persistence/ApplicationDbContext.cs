@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HardwareHub.Infrastructure.Persistence
 {
-    /// <summary>
-    /// Контекст базы данных для всего приложения.
-    /// Наследуется от IdentityDbContext для автоматической поддержки таблиц аутентификации и авторизации ASP.NET Core Identity.
-    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
+        // Добавляем таблицу категорий в контекст
+        public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Product> Products { get; set; } = null!;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -21,11 +19,10 @@ namespace HardwareHub.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // КРАЙНЕ ВАЖНО: Вызов base.OnModelCreating(builder) обязателен при наследовании от IdentityDbContext!
-            // Он настраивает стандартные схемы и связи для таблиц Identity (Users, Roles, Claims и т.д.).
             base.OnModelCreating(builder);
 
-            // Применяем все конфигурации сущностей (Fluent API) из текущей сборки (Infrastructure)
+            // Этот метод автоматически сканирует сборку (Infrastructure) и применяет все конфигурации,
+            // реализующие IEntityTypeConfiguration (включая нашу новую CategoryConfiguration)
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
     }

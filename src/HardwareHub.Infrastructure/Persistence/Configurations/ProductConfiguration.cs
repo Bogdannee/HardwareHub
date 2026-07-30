@@ -35,6 +35,17 @@ namespace HardwareHub.Infrastructure.Persistence.Configurations
 
             builder.Property(p => p.Quantity)
                 .IsRequired();
+
+             // НАСТРОЙКА СВЯЗИ:
+            // У каждого товара (HasOne) есть одна категория (Category).
+            // У каждой категории (WithMany) может быть много товаров (Products).
+            // Внешним ключом выступает свойство CategoryId (HasForeignKey).
+            builder.HasOne(p => p.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(p => p.CategoryId)
+                // Запрещаем удаление категории, если к ней привязаны товары (Restrict).
+                // Это защитит базу данных от появления "сиротских" товаров без категории.
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
