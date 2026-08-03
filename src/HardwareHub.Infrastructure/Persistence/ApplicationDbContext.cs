@@ -1,3 +1,4 @@
+using HardwareHub.Application.Common.Interfaces;
 using HardwareHub.Domain.Entities;
 using HardwareHub.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HardwareHub.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>, IApplicationDbContext
     {
         // Добавляем таблицу категорий в контекст
         public DbSet<Category> Categories { get; set; } = null!;

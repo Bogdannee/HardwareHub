@@ -23,7 +23,9 @@ namespace HardwareHub.Infrastructure
                 options.UseNpgsql(connectionString, b => 
                     // Указываем, что миграции будут создаваться и храниться в проекте Infrastructure
                     b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            
+                    
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+
             // 1. Настройка паттерна Options для JwtSettings
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
 
