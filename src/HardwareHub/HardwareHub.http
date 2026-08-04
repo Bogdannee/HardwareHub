@@ -1,5 +1,9 @@
 @HardwareHub_HostAddress = http://localhost:5231
 
+### ==========================================
+### СРЕЗ 0: АУТЕНТИФИКАЦИЯ
+### ==========================================
+
 ### 1. Регистрация нового пользователя (Customer)
 POST {{HardwareHub_HostAddress}}/api/auth/register
 Content-Type: application/json
@@ -34,11 +38,110 @@ Content-Type: application/json
 
 ###
 
-### 4. Неуспешный вход (неверный пароль)
-POST {{HardwareHub_HostAddress}}/api/auth/login
+
+### ==========================================
+### СРЕЗ 1: КАТАЛОГ — КАТЕГОРИИ
+### ==========================================
+
+### 4. Создание первой категории (Видеокарты)
+# @name createCategory1
+POST {{HardwareHub_HostAddress}}/api/categories
 Content-Type: application/json
 
 {
-  "email": "customer@hardwarehub.com",
-  "password": "WrongPassword"
+  "name": "Видеокарты",
+  "description": "Графические ускорители для игр и рабочих станций"
 }
+
+### После выполнения этого запроса скопируй полученный ID (GUID) и вставь его в переменную ниже:
+@categoryId = 00000000-0000-0000-0000-000000000000
+
+###
+
+### 5. Получение списка всех категорий
+GET {{HardwareHub_HostAddress}}/api/categories
+
+###
+
+### 6. Получение категории по сохраненному Id
+GET {{HardwareHub_HostAddress}}/api/categories/{{categoryId}}
+
+###
+
+### 7. Обновление названия и описания категории
+PUT {{HardwareHub_HostAddress}}/api/categories/{{categoryId}}
+Content-Type: application/json
+
+{
+  "id": "{{categoryId}}",
+  "name": "Игровые Видеокарты",
+  "description": "Мощные графические адаптеры NVIDIA GeForce и AMD Radeon"
+}
+
+###
+
+
+### ==========================================
+### СРЕЗ 1: КАТАЛОГ — ТОВАРЫ (PRODUCTS)
+### ==========================================
+
+### 8. Создание товара в нашей категории
+# @name createProduct
+POST {{HardwareHub_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "NVIDIA GeForce RTX 4070 Super",
+  "description": "Отличная видеокарта для 1440p гейминга с поддержкой DLSS 3",
+  "price": 650.00,
+  "quantity": 15,
+  "categoryId": "{{categoryId}}"
+}
+
+### После выполнения скопируй полученный ID товара и вставь в переменную ниже:
+@productId = 00000000-0000-0000-0000-000000000000
+
+###
+
+### 9. Получение списка всех товаров (без фильтрации)
+GET {{HardwareHub_HostAddress}}/api/products
+
+###
+
+### 10. Поиск товаров по ключевому слову (например, 'RTX')
+GET {{HardwareHub_HostAddress}}/api/products?searchTerm=RTX
+
+###
+
+### 11. Фильтрация товаров по ID категории
+GET {{HardwareHub_HostAddress}}/api/products?categoryId={{categoryId}}
+
+###
+
+### 12. Получение деталей конкретного товара по Id
+GET {{HardwareHub_HostAddress}}/api/products/{{productId}}
+
+###
+
+### 13. Обновление цены и количества товара
+PUT {{HardwareHub_HostAddress}}/api/products/{{productId}}
+Content-Type: application/json
+
+{
+  "id": "{{productId}}",
+  "name": "NVIDIA GeForce RTX 4070 Super (OC Edition)",
+  "description": "Разогнанная версия отличной видеокарты для 1440p гейминга",
+  "price": 679.99,
+  "quantity": 12,
+  "categoryId": "{{categoryId}}"
+}
+
+###
+
+### 14. Удаление товара
+DELETE {{HardwareHub_HostAddress}}/api/products/{{productId}}
+
+###
+
+### 15. Попытка удаления категории, в которой еще есть товары (должно вернуть ошибку BadRequest)
+DELETE {{HardwareHub_HostAddress}}/api/categories/{{categoryId}}
