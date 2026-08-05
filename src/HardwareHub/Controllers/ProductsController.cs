@@ -27,7 +27,7 @@ namespace HardwareHub.WebAPI.Controllers
         /// Параметры берутся из Query String (например: api/products?categoryId=GUID&searchTerm=видеокарта).
         /// </summary>
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromBody] Guid? categoryId, [FromQuery] string? searchTerm)
+        public async Task<IActionResult> GetProducts([FromQuery] Guid? categoryId, [FromQuery] string? searchTerm)
         {
             var query = new GetProductsQuery(categoryId, searchTerm);
             var products = await _mediator.Send(query);
